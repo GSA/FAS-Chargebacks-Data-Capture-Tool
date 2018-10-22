@@ -1,0 +1,1890 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="____Identify_Issues" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="____Identify_Issues_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.Excel</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="8 - Identify Issues" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="dtResolvedCount" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtNewReconciliation" />
+      <Variable x:TypeArguments="ui:WorkbookApplication" Name="wbWorkingCopy" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtReconciliationCount" />
+    </Sequence.Variables>
+    <TryCatch DisplayName="Error Handling" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Access Working Copy of File" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" Workbook="[wbWorkingCopy]" WorkbookPath="\\e04tcv-cifs02.ent.ds.gsa.gov\R3_FTS_Shares$\FSC\2018 - FY\Data Capture Tools\RPA Production Bot\FAS General Funds Chargebacks Data Capture Tool Development Working Copy.xlsx">
+          <ui:ExcelApplicationScope.Body>
+            <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+              </ActivityAction.Argument>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_20">
+                <Sequence DisplayName="Resolved Update" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="sd:DataTable" Name="dtResolvedCurrent" />
+                      <Variable x:TypeArguments="sd:DataRow[]" Name="arReconciliationDeleteArray" />
+                      <Variable x:TypeArguments="sd:DataTable" Name="dtNewResolved" />
+                    </Sequence.Variables>
+                    <Sequence DisplayName="Create newUnique Range" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                      <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_4" Range="B2:B4000" SheetName="OutstandingIssues" />
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Formulas' tab" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="99a85f60e0cf9797c5c3696f13e08629" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Formulas' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Name Manager'" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6eb20f9ba8768692c141094151ce84e1" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Formulas' role='property page' /&gt;&lt;ctrl name='Defined Names' role='tool bar' /&gt;&lt;ctrl name='Name Manager' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DelayBefore="500" DisplayName="Click 'New...'" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bcdc209e93fe5b9b74459d25258e83b9" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Name Manager' /&gt;&lt;ctrl name='Name Manager' role='dialog' /&gt;&lt;ctrl name='New...' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:TypeInto DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="1000" DisplayName="Type in range name" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="False" Text="newUnique">
+                        <ui:TypeInto.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c8ee1e0e774d8892dbee78791a5aa76f" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='New Name' /&gt;&lt;wnd cls='EDTBX' idx='1' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:TypeInto.Target>
+                      </ui:TypeInto>
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="360e013aecc2122da48dac74e17598fd" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='New Name' /&gt;&lt;ctrl name='New Name' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Close'" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c5e26e51984445a1525199451b1df87e" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Name Manager' /&gt;&lt;ctrl name='Name Manager' role='dialog' /&gt;&lt;ctrl name='Close' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                    </Sequence>
+                    <Sequence DisplayName="Add Count Column and Formula" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                      <ui:ExcelWriteCell Cell="A1" DisplayName="Rename Count Column" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_6" SheetName="Reconciliation" Text="Count" />
+                      <ui:ExcelWriteCell Cell="A4:A4000" DisplayName="Insert Count Formula to Detect if Resolved" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="Reconciliation" Text="=countif(newUnique,AX4)" />
+                    </Sequence>
+                    <Sequence DisplayName="New Rec-Resolved Method" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                      <Sequence DisplayName="Filter Reconciliation and Move Items to Resolved" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                        <Sequence DisplayName="Expand Reconciliation Table" sap2010:WorkflowViewState.IdRef="Sequence_63">
+                          <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_18" Range="B1" SheetName="Reconciliation" />
+                          <ui:TypeInto DelayBefore="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DisplayName="Hotkeys to convert table to range" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_23" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]jtg">
+                            <ui:TypeInto.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:TypeInto.Target>
+                          </ui:TypeInto>
+                          <Sequence DisplayName="Make Reconciliation Table" sap2010:WorkflowViewState.IdRef="Sequence_64">
+                            <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_19" Range="B1" SheetName="Reconciliation" />
+                            <ui:TypeInto DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="1000" DelayBetweenKeys="25" DisplayName="Hotkeys to create table" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_24" SendWindowMessages="False" SimulateType="False" Text="%[d(alt)]nt[u(alt)]">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="38bf4eff06bb04ed192b7dae79adaf7e" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='EXCEL7' title='FAS General Funds Chargebacks Data Capture Tool Development Work*' /&gt;&lt;ctrl name='FAS General Funds Chargebacks Data Capture Tool Development Work*' role='client' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_24" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2a672c3c817d22dae021fee09ff87d43" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Create Table' /&gt;&lt;ctrl name='Create Table' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:Click.Target>
+                            </ui:Click>
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="2000" DisplayName="Hotkeys to get to Table Name" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_25" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]jta">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f55c68b411be0a4ca5eee3675305ee2f" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:TypeInto DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayBefore="2000" DelayMS="2000" DisplayName="Type in Table Name" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_26" SendWindowMessages="False" SimulateType="False" Text="Reconciliation">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c5c9ef6f9f750b0f8345e745e7df55e8" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd aaname='Table Name:' omit:cls='RICHEDIT60W' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Hit 'Enter' to lock in table name" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_25" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                              <ui:SendHotkey.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                              </ui:SendHotkey.Target>
+                            </ui:SendHotkey>
+                          </Sequence>
+                        </Sequence>
+                        <Sequence DisplayName="Filter Reconciliation Tab" sap2010:WorkflowViewState.IdRef="Sequence_58">
+                          <ui:ExcelFilterTable ColumnName="Count" DisplayName="Filter Table" FilterOptions="[{&quot;0&quot;}]" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_1" SheetName="Reconciliation" TableName="Reconciliation" />
+                          <ui:ExcelWriteCell Cell="AS2:AS4000" DisplayName="Write Cell" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_7" SheetName="Reconciliation" Text="[now.Date.Month.ToString+&quot;/&quot;+now.Date.Day.ToString+&quot;/&quot;+now.Date.Year.ToString]" />
+                        </Sequence>
+                        <Sequence DisplayName="Select Data to Move" sap2010:WorkflowViewState.IdRef="Sequence_59">
+                          <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_5" Range="B1:AT1" SheetName="Reconciliation" />
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="down" KeyModifiers="Ctrl, Shift" SendWindowMessages="False" SpecialKey="True">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_6" Key="c" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                        </Sequence>
+                        <Sequence DisplayName="Paste Data" sap2010:WorkflowViewState.IdRef="Sequence_60">
+                          <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_6" Range="B6" SheetName="Resolved" />
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_4" Key="down" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="True">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_2" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_7" Key="v" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                        </Sequence>
+                        <Sequence DisplayName="Remove Header Row" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                          <ui:ExcelFilterTable ColumnName="Reporting Source" DisplayName="Filter table for incorrect row" FilterOptions="[{&quot;Reporting Source&quot;}]" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_7" SheetName="Resolved" TableName="Resolved" />
+                          <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_20" Range="B1" SheetName="Resolved" />
+                          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Go down one row" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_26" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                            <ui:SendHotkey.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:SendHotkey.Target>
+                          </ui:SendHotkey>
+                          <ui:TypeInto DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="750" DelayBetweenKeys="25" DisplayName="Hotkeys to delete row" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_27" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hdr">
+                            <ui:TypeInto.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                            </ui:TypeInto.Target>
+                          </ui:TypeInto>
+                          <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Reporting Source" DisplayName="Clear Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_8" SheetName="Resolved" TableName="Resolved" />
+                        </Sequence>
+                        <Sequence DisplayName="Format Data and Table" sap2010:WorkflowViewState.IdRef="Sequence_57">
+                          <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                            <ui:CommentOut.Body>
+                              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_102">
+                                <Sequence DisplayName="Remove and Add Columns" sap2010:WorkflowViewState.IdRef="Sequence_101">
+                                  <ui:ExcelSelectRange DisplayName="Select Column A" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_12" Range="A1" SheetName="Resolved" />
+                                  <ui:TypeInto DelayBefore="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DelayMS="3000" DisplayName="Hotkeys to Delete Column" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_17" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hdc">
+                                    <ui:TypeInto.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                                    </ui:TypeInto.Target>
+                                  </ui:TypeInto>
+                                  <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_13" Range="A1" SheetName="Resolved" />
+                                  <ui:TypeInto DelayBefore="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DelayMS="3000" DisplayName="Hotkeys to Re-Insert Column A" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_18" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hic">
+                                    <ui:TypeInto.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                                    </ui:TypeInto.Target>
+                                  </ui:TypeInto>
+                                </Sequence>
+                              </Sequence>
+                            </ui:CommentOut.Body>
+                          </ui:CommentOut>
+                          <Sequence DisplayName="Make Resolved Table" sap2010:WorkflowViewState.IdRef="Sequence_61">
+                            <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_16" Range="C1" SheetName="Resolved" />
+                            <ui:TypeInto Activate="True" ClickBeforeTyping="False" DelayBefore="2500" DelayBetweenKeys="25" DelayMS="5000" DisplayName="Type into 'client FAS'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_19" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]jtg">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="38bf4eff06bb04ed192b7dae79adaf7e" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='EXCEL7' title='FAS General Funds Chargebacks Data Capture Tool Development Work*' /&gt;&lt;ctrl name='FAS General Funds Chargebacks Data Capture Tool Development Work*' role='client' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_15" Range="B1" SheetName="Resolved" />
+                            <ui:TypeInto DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="2000" DisplayName="Type into 'client FAS'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_22" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]nt">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="38bf4eff06bb04ed192b7dae79adaf7e" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='EXCEL7' title='FAS General Funds Chargebacks Data Capture Tool Development Work*' /&gt;&lt;ctrl name='FAS General Funds Chargebacks Data Capture Tool Development Work*' role='client' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'push button  OK'" sap2010:WorkflowViewState.IdRef="Click_21" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2a672c3c817d22dae021fee09ff87d43" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Create Table' /&gt;&lt;ctrl name='Create Table' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:Click.Target>
+                            </ui:Click>
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="2000" DisplayName="Type into 'RICHEDIT60W'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_20" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]jta">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f55c68b411be0a4ca5eee3675305ee2f" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:TypeInto DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayBefore="2000" DelayMS="2000" DisplayName="Type in Table Name" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_21" SendWindowMessages="False" SimulateType="False" Text="Resolved">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c5c9ef6f9f750b0f8345e745e7df55e8" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd aaname='Table Name:' omit:cls='RICHEDIT60W' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                            <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_23" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                              <ui:SendHotkey.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                              </ui:SendHotkey.Target>
+                            </ui:SendHotkey>
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Design' Tab" sap2010:WorkflowViewState.IdRef="Click_22" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3493c4e05d54d3cfed593ca7f9dcedd9" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Table Tools' role='grouping' /&gt;&lt;ctrl name='Design' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:Click.Target>
+                            </ui:Click>
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Banded Rows'" sap2010:WorkflowViewState.IdRef="Click_23" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="34d747430513de0b4b56741ad93ce83d" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Design' role='property page' /&gt;&lt;ctrl name='Table Style Options' role='tool bar' /&gt;&lt;ctrl name='Banded Rows' role='check box' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:Click.Target>
+                            </ui:Click>
+                          </Sequence>
+                        </Sequence>
+                      </Sequence>
+                      <Sequence DisplayName="Delete Moved Items" sap2010:WorkflowViewState.IdRef="Sequence_49">
+                        <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_7" Range="A1" SheetName="Reconciliation" />
+                        <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_8" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                          <ui:SendHotkey.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                          </ui:SendHotkey.Target>
+                        </ui:SendHotkey>
+                        <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="750" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_9" Key="a" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                          <ui:SendHotkey.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                          </ui:SendHotkey.Target>
+                        </ui:SendHotkey>
+                        <ui:TypeInto DelayBefore="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_14" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hdr">
+                          <ui:TypeInto.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                          </ui:TypeInto.Target>
+                        </ui:TypeInto>
+                      </Sequence>
+                    </Sequence>
+                  </Sequence>
+                </Sequence>
+                <Sequence DisplayName="New OI-Rec Method" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                  <Sequence DisplayName="Update OutstandingIssues Data" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                    <ui:ExcelInsertColumn ColumnName="newIssues" DisplayName="Insert Column" sap2010:WorkflowViewState.IdRef="ExcelInsertColumn_4" Position="0" SheetName="OutstandingIssues" TableName="OutstandingIssues" />
+                    <ui:ExcelWriteCell Cell="A2:A4000" DisplayName="Add Count Formula for Already-Identified Issues" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_9" SheetName="OutstandingIssues" Text="=countif(reconUnique,C2)" />
+                  </Sequence>
+                  <Sequence DisplayName="Filter OI and Move Items to Reconciliation" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                    <Delay Duration="00:00:05" sap2010:WorkflowViewState.IdRef="Delay_1" />
+                    <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Count" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_3" SheetName="Reconciliation" TableName="Reconciliation" />
+                    <Delay Duration="00:00:05" sap2010:WorkflowViewState.IdRef="Delay_2" />
+                    <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                      <ui:CommentOut.Body>
+                        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_100">
+                          <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="previouslyResolved" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_2" SheetName="OutstandingIssues" TableName="OutstandingIssues" />
+                        </Sequence>
+                      </ui:CommentOut.Body>
+                    </ui:CommentOut>
+                    <ui:ExcelFilterTable ColumnName="newIssues" DisplayName="Filter Table" FilterOptions="[{&quot;0&quot;}]" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_4" SheetName="OutstandingIssues" TableName="OutstandingIssues" />
+                    <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Count" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_10" SheetName="Reconciliation" TableName="Reconciliation" />
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_8" Range="D1:AW1" SheetName="OutstandingIssues" />
+                    <ui:TypeInto DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="1000" DelayMS="1000" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_36" SendWindowMessages="False" SimulateType="False" Text="%[d(ctrl)][d(shift)][k(down)][u(shift)][u(ctrl)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'split button  Copy'" sap2010:WorkflowViewState.IdRef="Click_85" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="01fca5f9adb405c0b0f0498681f7c16a" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Home' role='property page' /&gt;&lt;ctrl name='Clipboard' role='tool bar' /&gt;&lt;ctrl name='Copy' role='grouping' /&gt;&lt;ctrl name='Copy' role='split button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_9" Range="B1" SheetName="Reconciliation" />
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_32" SendWindowMessages="False" SimulateType="False" Text="%[d(ctrl)][k(down)][u(ctrl)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_33" SendWindowMessages="False" SimulateType="False" Text="%[k(down)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:TypeInto DelayBefore="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DelayMS="10000" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_34" SendWindowMessages="False" SimulateType="False" Text="%[d(ctrl)]v[u(ctrl)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                  </Sequence>
+                  <Sequence DisplayName="Remove OI Headers in Reconciliation from Pasting" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                    <ui:ExcelFilterTable ColumnName="Reporting Source" DisplayName="Filter Table" FilterOptions="[{&quot;Source&quot;}]" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_5" SheetName="Reconciliation" TableName="Reconciliation" />
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_11" Range="B1" SheetName="Reconciliation" />
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="5000" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_35" SendWindowMessages="False" SimulateType="False" Text="%[k(right)][k(down)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'page tab  Home'" sap2010:WorkflowViewState.IdRef="Click_86" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="de1d14e189c2490aeb2c8e74b6056def" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Home' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'drop down button  Delete'" sap2010:WorkflowViewState.IdRef="Click_87" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="00764d05fd621bc2a8c6e4cdd3a0baf5" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Home' role='property page' /&gt;&lt;ctrl name='Cells' role='tool bar' /&gt;&lt;ctrl name='Delete' role='grouping' /&gt;&lt;ctrl name='Delete' role='drop down button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'menu item'" sap2010:WorkflowViewState.IdRef="Click_88" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3af469f2d8952b3092f90528b5cfb0de" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Delete Sheet Rows' role='menu item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Count" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_6" SheetName="Reconciliation" TableName="Reconciliation" />
+                    <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Reporting Source" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_11" SheetName="Reconciliation" TableName="Reconciliation" />
+                  </Sequence>
+                  <Sequence DisplayName="Clear Reconciliation Column A" sap2010:WorkflowViewState.IdRef="Sequence_62">
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_17" Range="A2:A6000" SheetName="Reconciliation" />
+                    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_24" Key="del" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                  </Sequence>
+                  <Sequence DisplayName="Copy Down Formulas" sap2010:WorkflowViewState.IdRef="Sequence_66">
+                    <ui:ExcelFilterTable FilterOptions="{x:Null}" ColumnName="Reporting Source" DisplayName="Filter Table" sap2010:WorkflowViewState.IdRef="ExcelFilterTable_9" SheetName="Reconciliation" TableName="Reconciliation" />
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_21" Range="AV4:BD4" SheetName="Reconciliation" />
+                    <ui:SendHotkey DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="1000" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_27" Key="c" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_27" Range="AV4:BD4500" SheetName="Reconciliation" />
+                    <ui:SendHotkey DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="1000" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_30" Key="v" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                  </Sequence>
+                  <ui:Click ClickType="CLICK_SINGLE" DelayBefore="5000" DelayMS="15000" DisplayName="Click 'Save'" sap2010:WorkflowViewState.IdRef="Click_18" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bd08c72f246bf7be33a4d8b0ca28fb6c" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Quick Access Toolbar' role='tool bar' /&gt;&lt;ctrl name='Save' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                </Sequence>
+                <Sequence DisplayName="Table Formatting" sap2010:WorkflowViewState.IdRef="Sequence_68">
+                  <Sequence DisplayName="Resolved Tab" sap2010:WorkflowViewState.IdRef="Sequence_67">
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_22" Range="B4:BG5" SheetName="Resolved" />
+                    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Hotkeys to copy" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_31" Key="c" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Hotkeys to select entire table" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_32" Key="down" KeyModifiers="Ctrl, Shift" SendWindowMessages="False" SpecialKey="True">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                    <ui:TypeInto DelayBefore="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DelayMS="20000" DisplayName="Hotkeys to paste formatting only" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_28" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hvr">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                  </Sequence>
+                  <Sequence DisplayName="Reconciliation Tab" sap2010:WorkflowViewState.IdRef="Sequence_69">
+                    <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_23" Range="B4:BD5" SheetName="Reconciliation" />
+                    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Hotkeys to copy" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_33" Key="c" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Hotkeys to select entire table" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_34" Key="down" KeyModifiers="Ctrl, Shift" SendWindowMessages="False" SpecialKey="True">
+                      <ui:SendHotkey.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:SendHotkey.Target>
+                    </ui:SendHotkey>
+                    <ui:TypeInto DelayBefore="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBetweenKeys="25" DelayMS="12000" DisplayName="Hotkeys to paste formatting only" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_29" SendWindowMessages="False" SimulateType="False" Text="[k(alt)]hvr">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                  </Sequence>
+                </Sequence>
+                <Sequence DisplayName="Clear Column A in Reconciliation" sap2010:WorkflowViewState.IdRef="Sequence_77">
+                  <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_26" Range="A2:A6000" SheetName="Reconciliation" />
+                  <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Delete cell contents" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_35" Key="del" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                    <ui:SendHotkey.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                    </ui:SendHotkey.Target>
+                  </ui:SendHotkey>
+                </Sequence>
+                <Sequence DisplayName="Sort Reconciliation (14.1 in PDD)" sap2010:WorkflowViewState.IdRef="Sequence_71">
+                  <ui:ExcelSelectRange DisplayName="Select Range" sap2010:WorkflowViewState.IdRef="ExcelSelectRange_25" Range="B1" SheetName="Reconciliation" />
+                  <Sequence DisplayName="Delete Old Sorting" sap2010:WorkflowViewState.IdRef="Sequence_99">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Data' Tab" sap2010:WorkflowViewState.IdRef="Click_26" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9bcf20f24ad1396da33b8f6317e76cb0" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Data' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Sort...'" sap2010:WorkflowViewState.IdRef="Click_77" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d70bd85ec4e7a1c4b1ab141123992300" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Data' role='property page' /&gt;&lt;ctrl name='Sort &amp;amp; Filter' role='tool bar' /&gt;&lt;ctrl name='Sort...' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_78" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_79" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_80" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_81" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_82" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="500" DisplayName="Click 'Delete Level'" sap2010:WorkflowViewState.IdRef="Click_83" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b75cef4feaf3990325faab8618747265" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Delete Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_84" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="39a3620294e6e33fff8bf242b7f8db21" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Data' Tab" sap2010:WorkflowViewState.IdRef="Click_76" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9bcf20f24ad1396da33b8f6317e76cb0" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Data' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Sort...'" sap2010:WorkflowViewState.IdRef="Click_27" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d70bd85ec4e7a1c4b1ab141123992300" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Data' role='property page' /&gt;&lt;ctrl name='Sort &amp;amp; Filter' role='tool bar' /&gt;&lt;ctrl name='Sort...' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="First Sort" sap2010:WorkflowViewState.IdRef="Sequence_82">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click First Dropdown" sap2010:WorkflowViewState.IdRef="Click_31" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9a083116d75582f49796e82370e92e68" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='1' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Reporting Source'" sap2010:WorkflowViewState.IdRef="Click_49" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c86b5a7327b4c6592b96b95e0c41aed8" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='1' /&gt;&lt;ctrl name='Reporting Source' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Sort On Dropdown" sap2010:WorkflowViewState.IdRef="Click_50" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="304c848c0ccb241be40c915e5d853899" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='2' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Cell Color'" sap2010:WorkflowViewState.IdRef="Click_51" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7c1680347944c1947db97352ebd8de3c" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='2' /&gt;&lt;ctrl name='Cell Color' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Order Dropdown" sap2010:WorkflowViewState.IdRef="Click_52" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1aef70558ecf153b173a44c13a154d27" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl idx='1' name='Sort Field' role='list item' /&gt;&lt;ctrl name='Open' role='drop down button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Blue'" sap2010:WorkflowViewState.IdRef="Click_53" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="33faab61bfeedc1351398b36ea4fb652" Selector="&lt;wnd app='excel.exe' cls='Net UI Tool Window' /&gt;&lt;wnd aaname='Cell Color Dropdown' cls='NetUIHWND' /&gt;&lt;ctrl name='Cell Color Dropdown' role='grouping' /&gt;&lt;ctrl name='RGB(0, 32, 96)' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_61" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c77debe34ce31d2f0c9f9a2549e5f1d9" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Data'" sap2010:WorkflowViewState.IdRef="Click_62" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8c22840bfef5bedfa041aef359b362a6" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Ribbon Tabs' role='page tab list' /&gt;&lt;ctrl name='Data' role='page tab' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Sort...'" sap2010:WorkflowViewState.IdRef="Click_63" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e432e9970e920485204f585274797ecd" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Lower Ribbon' role='pane' /&gt;&lt;ctrl name='Data' role='property page' /&gt;&lt;ctrl name='Sort &amp;amp; Filter' role='tool bar' /&gt;&lt;ctrl name='Sort...' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Add Level'" sap2010:WorkflowViewState.IdRef="Click_60" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f3c44e11d72ee8fcc25a2c1eb31bdd3" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Add Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="Second Sort" sap2010:WorkflowViewState.IdRef="Sequence_83">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Second Dropdown" sap2010:WorkflowViewState.IdRef="Click_54" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="15405ea0b09eb888566c561618e29da7" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='4' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Reporting Source'" sap2010:WorkflowViewState.IdRef="Click_55" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1060c1a61ef5d885ef6b11b8a3172327" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='4' /&gt;&lt;ctrl name='Reporting Source' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Sort On Dropdown" sap2010:WorkflowViewState.IdRef="Click_56" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4ac221eb260983745e353b7b1e0785ad" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='5' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Cell Color'" sap2010:WorkflowViewState.IdRef="Click_57" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7c1680347944c1947db97352ebd8de3c" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='5' /&gt;&lt;ctrl name='Cell Color' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Order Dropdown" sap2010:WorkflowViewState.IdRef="Click_58" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f49984a786ea9ed8a97338e9791f2dfc" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl idx='2' name='Sort Field' role='list item' /&gt;&lt;ctrl name='Open' role='drop down button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Light Blue'" sap2010:WorkflowViewState.IdRef="Click_59" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bd5d91297df0e9454d528258a1aa0e1a" Selector="&lt;wnd app='excel.exe' cls='Net UI Tool Window' /&gt;&lt;wnd aaname='Cell Color Dropdown' cls='NetUIHWND' /&gt;&lt;ctrl name='Cell Color Dropdown' role='grouping' /&gt;&lt;ctrl name='RGB(218, 238, 243)' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Add Level'" sap2010:WorkflowViewState.IdRef="Click_66" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f3c44e11d72ee8fcc25a2c1eb31bdd3" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Add Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="Third Sort" sap2010:WorkflowViewState.IdRef="Sequence_84">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Third Dropdown" sap2010:WorkflowViewState.IdRef="Click_33" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="15405ea0b09eb888566c561618e29da7" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='7' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Business Line'" sap2010:WorkflowViewState.IdRef="Click_32" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9f62fc93a27ecfdc11470830e5922976" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='7' /&gt;&lt;ctrl name='Business Line' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Add Level'" sap2010:WorkflowViewState.IdRef="Click_69" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f3c44e11d72ee8fcc25a2c1eb31bdd3" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Add Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="Fourt Sort" sap2010:WorkflowViewState.IdRef="Sequence_85">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Fourth Dropdown" sap2010:WorkflowViewState.IdRef="Click_40" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9c1842e4c2dd15ef6a97ac566412e355" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='10' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'ALC'" sap2010:WorkflowViewState.IdRef="Click_34" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="822e3a7ca63af1a63cb567315d5f6959" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='10' /&gt;&lt;ctrl name='ALC' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Add Level'" sap2010:WorkflowViewState.IdRef="Click_72" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f3c44e11d72ee8fcc25a2c1eb31bdd3" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Add Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="Fifth Sort" sap2010:WorkflowViewState.IdRef="Sequence_86">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Fifth Dropdown" sap2010:WorkflowViewState.IdRef="Click_43" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ef495626fd0cadff922b79fbe833fc5c" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='13' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <Sequence DisplayName="Hit Down 30 Times" sap2010:WorkflowViewState.IdRef="Sequence_75">
+                      <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_30" SendWindowMessages="False" SimulateType="False" Text="%[k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)]">
+                        <ui:TypeInto.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                        </ui:TypeInto.Target>
+                      </ui:TypeInto>
+                    </Sequence>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Vendor'" sap2010:WorkflowViewState.IdRef="Click_42" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4250b265953d9ff110c5e3e92deb5aec" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='13' /&gt;&lt;ctrl name='Vendor' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Add Level'" sap2010:WorkflowViewState.IdRef="Click_75" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f3c44e11d72ee8fcc25a2c1eb31bdd3" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='Add Level' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Sequence DisplayName="Sixth Sort" sap2010:WorkflowViewState.IdRef="Sequence_87">
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Sixth Dropdown" sap2010:WorkflowViewState.IdRef="Click_48" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ef495626fd0cadff922b79fbe833fc5c" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='NetUICtrlNotifySink' idx='16' /&gt;&lt;ctrl name='Open' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <Sequence DisplayName="Hit Down 30 Times" sap2010:WorkflowViewState.IdRef="Sequence_76">
+                      <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_31" SendWindowMessages="False" SimulateType="False" Text="%[k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)][k(down)]">
+                        <ui:TypeInto.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                        </ui:TypeInto.Target>
+                      </ui:TypeInto>
+                    </Sequence>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Statement'" sap2010:WorkflowViewState.IdRef="Click_44" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="999d852e0a23ede8eea55c5fabf2369c" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;wnd cls='REComboBox20W' idx='16' /&gt;&lt;ctrl name='Statement' role='list item' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_39" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bde75d83b463e80655aefdfc1588fd1b" Selector="&lt;wnd app='excel.exe' cls='NUIDialog' title='Sort' /&gt;&lt;wnd aaname='Sort' cls='NetUIHWND' /&gt;&lt;ctrl name='Sort' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Sort anything that looks like a number...'" sap2010:WorkflowViewState.IdRef="Click_45" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0b5c6de0dc0855dfd342ea545cb48701" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Sort Warning' /&gt;&lt;ctrl name='Sort Warning' role='dialog' /&gt;&lt;ctrl name='Sort anything that looks like a number, as a number' role='radio button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:Click DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="7500" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_46" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="647149d5544f9be2c08087c5c4598bd7" Selector="&lt;wnd app='excel.exe' cls='bosa_sdm_XL9' title='Sort Warning' /&gt;&lt;ctrl name='Sort Warning' role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                </Sequence>
+                <ui:Click DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="12500" DisplayName="Click 'Save'" sap2010:WorkflowViewState.IdRef="Click_25" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d1bbfffa8d1eb454558659e72d20553a" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Quick Access Toolbar' role='tool bar' /&gt;&lt;ctrl name='Save' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+                  </ui:Click.Target>
+                </ui:Click>
+              </Sequence>
+            </ActivityAction>
+          </ui:ExcelApplicationScope.Body>
+        </ui:ExcelApplicationScope>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_56">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Default="rpaprd01_gsa_rpa01.noreply@gsa.gov" Name="vRecipient" />
+                <Variable x:TypeArguments="x:String" Default="rpaprd01_gsa_rpa01.noreply@gsa.gov" Name="vBotEmail" />
+              </Sequence.Variables>
+              <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" Email="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" TimeoutMS="{x:Null}" Body="The FAS Chargebacks bot has encountered an error. The bot failed to identify new and resolved issues and move them to the appropriate tabs. All other steps before this point were successful. " DisplayName="Send Error Email" EnableSSL="True" From="[vBotEmail]" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="25" SecureConnection="None" Server="smtp.gsa.gov" Subject="Error Occurred in FAS Chargebacks Bot" To="[vRecipient]">
+                <ui:SendMail.Files>
+                  <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                </ui:SendMail.Files>
+              </ui:SendMail>
+              <TerminateWorkflow DisplayName="End Workflow" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:CloseApplication ContinueOnError="True" DisplayName="Close Excel" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+      <ui:CloseApplication.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c0be6a813fd013a3cb182f30bd5867ff" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - *' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:CloseApplication.Target>
+    </ui:CloseApplication>
+    <sads:DebugSymbol.Symbol>dx9IOlxib3RcOCAtIElkZW50aWZ5IElzc3Vlcy54YW1smANDA5MKDgIBAUoFjAoQAgEFjQoFkQobAgECTAn1CSQCARX9CQ2IChgCAQaPCpgBjwrgAQIBBI0KKo0KMAIBA0ykAUy1AQMBmwNMwwFM9AIDAZoDUg/yCRoCARb/CT7/CWICAQiACj6ACmICAQeCCg+GCh0CAQyHCg+HCo0BAgEJUxGIAxwDAYoCiQMRnwQcAwGmAaAEEcUEHAMBkQHGBBHNBBwDAYwBzgQR4gkcAgEa4wkR8QkcAgEXggrPBIIK3QQCAROCCp8BggrgAgIBEoIKpASCCssEAgERggqWA4IKowMCAQ+CCukDggrtAwIBDoIKjQSCCpsEAgENhwpHhwpUAgEKVBOHAx4DAYsCigMTjQMeAwGAAo4DE8ADHgMB2QHBAxP4Ax4DAb8B+QMTgAQeAwG6AYEEE48EHgMBqwGQBBOeBB4DAacBoQQTsgQeAwGcAbMEE8QEHgMBkgHHBBPHBKcBAwGOAcgEE8wEIwMBjQHPBBPPBKEBAwGJAdAEE9gFHgIBatkFE+cFHgIBaOgFE/YFHgIBZvcFE+EGHgIBV+IGE/AGHgIBVfEGE/8GHgIBU4AHE44HHgIBUY8HE+oHHgIBROsHE/kHHgIBQvoHE5kIHgIBPZoIE6gIHgIBO6kIE8gIHgIBNskIE9cIHgIBNNgIE/4IHgIBLP8IE40JHgIBKo4JE7QJHgIBIrUJE8MJHgIBIMQJE9IJHgIBHtMJE+EJHgIBG+8JpAHvCdcDAgEZ4wlT4wlaAgEYWhWsASADAYcDrQEVsAEgAwH+ArEBFYYDIAMBjAKLAxWLA98BAwGFAowDFYwD6QEDAYECjwMVjwNcAwH+AZADFZAD3gEDAfoBkQMVkQNcAwH4AZIDFZgDJQMB9wGZAxWZA/EBAwHyAZoDFZoD3wEDAe4BmwMVmwOpAQMB6wGcAxWgAyMDAecBoQMVrwMgAwHlAbADFbADogEDAeIBsQMVtQMjAwHgAbYDFboDIwMB3gG7AxW/AyMDAdoBwgMVwgP3AQMB1AHDAxXDA6MBAwHRAcQDFcgDIwMBzgHJAxXXAyADAcwB2AMV5gMgAwHKAecDFfUDIAMByAH2AxX2A94BAwHEAfcDFfcD6gEDAcAB+gMV+gOpAQMBvAH7AxX/AyUDAbsBggQVggTpAQMBtgGDBBWDBKgBAwGzAYQEFYgEJQMBsQGJBBWJBKsBAwGuAYoEFY4EJQMBrAGcBKYBnATZAwMBqgGQBFGQBFgDAakBkARCkARIAwGoAaIEFaIEoQEDAaMBowQVpwQlAwGiAagEFawEJQMBoQGtBBWxBCMDAZ0BtAQVtASnAQMBmQG1BBW5BCUDAZgBugQVvgQlAwGXAb8EFcMEIwMBkwHHBH/HBIkBAwGQAccElAHHBKQBAwGPAc8Ef88EgwEDAYsBzwSOAc8EngEDAYoB0QQV3wQgAwGHAeAEFe4EIAMBhQHvBBX9BCADAYEB/gQVjAUgAgF9jQUVmwUgAgF5nAUVqgUgAgF1qwUVuQUgAgFxugUVyAUgAgFtyQUV1wUgAgFr5QWmAeUFpAMCAWn0BaYB9AWMBAIBZ/gFFYYGIAIBZIcGFZUGIAIBYpYGFaQGIAIBYKUGFbMGIAIBXrQGFcIGIAIBXMMGFdEGIAIBWtIGFeAGIAIBWO4GpgHuBtIDAgFW/QamAf0GugQCAVSMB6YBjAfnAgIBUpAHFZ4HIAIBT58HFa0HIAIBTa4HFbwHIAIBS70HFcsHIAIBScwHFdoHIAIBR9sHFekHIAIBRfcHpgH3B+cCAgFD+wcViQggAgFAiggVmAggAgE+pgimAaYI5wICATyqCBW4CCACATm5CBXHCCACATfVCKYB1QjnAgIBNdkIFecIIAIBMugIFe4IIAIBL+8IFf0IIAIBLYsJpgGLCecCAgErjwkVnQkgAgEongkVpAkgAgElpQkVswkgAgEjwQmmAcEJ4AICASHQCaYB0An6AgIBH98JpgHfCcgCAgEd0wlV0wlbAgEcWxdbrQEDAZcDXBdqIgMBlQNrF3kiAwGTA3oXiAEiAwGQA4kBF40BJQMBjAOOARecASIDAYoDnQEXqwEiAwGIA64BF64BswEDAYMDrwEXrwHiAQMB/wKyARfzAiIDAZcC9AIXhQMiAwGNAosDnQGLA6ABAwGJAosDNosDQQMBiAKLA8kBiwPcAQMBhwKLA6sBiwO+AQMBhgKMAy2MAzcDAYQCjAPMAYwD5gEDAYMCjAOzAYwDxgEDAYICjwMljwMvAwH/AZADTpADVQMB/QGQA8sBkAPbAQMB/AGQA7ABkAPAAQMB+wGRAyWRAy8DAfkBmQM1mQNAAwH2AZkDapkDfQMB9QGZA9sBmQPuAQMB9AGZA70BmQPQAQMB8wGaA06aA1UDAfEBmgPMAZoD3AEDAfABmgOxAZoDwQEDAe8BmwOAAZsDiAEDAe0BmwOTAZsDpgEDAewBnAODAZwDiQEDAeoBnAOYApwDygIDAekBnAN0nAN6AwHoAa0DqAGtA6oEAwHmAbADgAGwA4QBAwHkAbADjwGwA58BAwHjAbEDoAKxA74CAwHhAbYDoAK2A6wCAwHfAbsDgQG7A4gBAwHdAbsDlwK7A60CAwHcAbsDdLsDeAMB2wHCAzXCA0cDAdgBwgNxwgOJAQMB1wHCA+QBwgP0AQMB1gHCA8kBwgPZAQMB1QHDA4EBwwOFAQMB0wHDA5ABwwOgAQMB0gHEA4cBxAONAQMB0AHEA5wCxAOyAgMBzwHVA6gB1QOmAwMBzQHkA6gB5AOuBAMBywHzA6gB8wPNAgMByQH2A072A1UDAccB9gPLAfYD2wEDAcYB9gOwAfYDwAEDAcUB9wNO9wNgAwHDAfcD1wH3A+cBAwHCAfcDvAH3A8wBAwHBAfoDgQH6A4sBAwG+AfoDlgH6A6YBAwG9AYIEToIEYAMBuQGCBNYBggTmAQMBuAGCBLsBggTLAQMBtwGDBIEBgwSKAQMBtQGDBJUBgwSlAQMBtAGEBIkBhASPAQMBsgGJBIEBiQSNAQMBsAGJBJgBiQSoAQMBrwGKBIkBigSPAQMBrQGiBIEBogSJAQMBpQGiBJQBogSeAQMBpAGtBIEBrQSIAQMBoAGtBK4CrQS7AgMBnwGtBHStBHgDAZ4BtASBAbQEiQEDAZsBtASUAbQEpAEDAZoBvwSBAb8EiAEDAZYBvwSuAr8EuwIDAZUBvwR0vwR4AwGUAd0EqAHdBKYDAwGIAewEqAHsBI4EAwGGAfsEqAH7BOwCAwGEAe8EW+8EYQMBgwHvBG7vBHMDAYIBigWoAYoF7AIDAYAB/gRb/gRhAgF//gRu/gRzAgF+mQWoAZkF7AICAXyNBVuNBWECAXuNBW6NBXMCAXqoBagBqAXsAgIBeJwFW5wFYQIBd5wFbpwFcwIBdrcFqAG3BewCAgF0qwVbqwVhAgFzqwVuqwVzAgFyxgWoAcYF7AICAXC6BVu6BWECAW+6BW66BXMCAW7VBagB1QXiAgIBbIQGqAGEBusCAgFlkwaoAZMG7wICAWOiBqgBogbrAgIBYbEGqAGxBukCAgFfwAaoAcAGogMCAV3PBqgBzwaKAwIBW94GqAHeBuICAgFZnAeoAZwH6wICAVCrB6gBqwfvAgIBTroHqAG6B+sCAgFMyQeoAckH6QICAUrYB6gB2AeiAwIBSOcHqAHnB44DAgFGhwioAYcI6wICAUGWCKgBlgjsAgIBP7YIqAG2COwCAgE6xQioAcUI4wICATjlCKgB5QjsAgIBM+kIF+0IJQIBMPsIqAH7COYCAgEumwmoAZsJ7AICASmfCRejCSUCASaxCagBsQnpAgIBJFuCAVuMAQMBmQNblwFbqgEDAZgDaKoBaNoDAwGWA3eqAXe/BAMBlAOGAaoBhgHQAgMBkgN6WXpeAwGRA4sBqgGLAY4CAwGPA4kBpgKJAbECAwGOA4kBiQGJAY8BAwGNA5oBqgGaAcQCAwGLA6kBqgGpAc8CAwGJA64BL64BMwMBhgOuAakBrgGwAQMBhQOuAZMBrgGjAQMBhAOvAS+vATkDAYIDrwHGAa8B3wEDAYEDrwGwAa8BwAEDAYADswEZ4AEkAwHjAuEBGeQBJAMB2QLlARnxASQDAdMC8gEZgwIkAwHMAoQCGZICJAMBugKTAhnyAiQDAZgC9QIZ9QKmAQMBlAL2Ahn6AikDAZMC+wIZ/wIpAwGRAoADGYQDJwMBjgLpCKIC6QizBAIBMZ8JogKfCbMEAgEntAEbtAGpAQMB+wK1ARu5ASkDAfgCugEb3wEmAwHkAuIBG+IB7QEDAd4C4wEb4wGTAgMB2gLmARvmAawBAwHWAucBG+sBKwMB1QLsARvwASsDAdQC8wEb8wGiAQMB0AL0ARv4ASsDAc8C+QEb/QErAwHOAv4BG4ICKwMBzQKFAhuFAo0CAwHHAoYCG4YCowEDAcQChwIbiwIrAwHDAowCG5ACKQMBvwKRAhuRAuIBAwG7ApQCG6cCKwMBuQKoAhvxAiYDAZkC9QKEAfUCiAEDAZYC9QKTAfUCowEDAZUC+wKNAfsCkgEDAZICgAOeAoADqwIDAZACgAOLAYADjwEDAY8CtAGHAbQBiwEDAf0CtAGWAbQBpgEDAfwCtQG4ArUBxQIDAfoCtQGNAbUBkQEDAfkCuwEduwGrAQMB9QK8AR3AASsDAfACwQEdzwEoAwHuAtABHdQBKwMB6wLVAR3ZASsDAeYC2gEd3gEtAwHlAuIBO+IBQgMB4gLiAWziAX8DAeEC4gHaAeIB6gEDAeAC4gG/AeIBzwEDAd8C4wEz4wE/AwHdAuMBrAHjAZACAwHcAuMBlgHjAaYBAwHbAuYBhgHmAY4BAwHYAuYBmQHmAakBAwHXAvMBhgHzAYoBAwHSAvMBlQHzAZ8BAwHRAoUCO4UCTQMBywKFAokBhQKrAQMBygKFAoAChQKKAgMByQKFAusBhQL1AQMByAKGAocBhgKLAQMBxgKGApYBhgKgAQMBxQKMAqcCjAK0AgMBwgKMAogBjAKMAQMBwQKMAnGMAnYDAcACkQJUkQJmAwG+ApEC1QGRAt8BAwG9ApECwAGRAsoBAwG8AqkCHakCpQEDAbYCqgIdrgIrAwGwAq8CHa8CpQEDAa0CsAIdtAIrAwGpArUCHcMCKAMBpwLEAh3IAisDAaQCyQIdzQIrAwGfAs4CHdICLQMBngLTAh3hAigDAZwC4gId8AIoAwGaArsBiQG7AY0BAwH3ArsBmAG7AagBAwH2Ar4BsAG+Ae8DAwH0ArwBrAK8AcECAwHzArwBiwG8AY8BAwHyArwBc7wBeQMB8QLNAbABzQHSAgMB7wLQAbcC0AHEAgMB7QLQAY8B0AGVAQMB7ALXAbAB1wHfAgMB6gLVAYoB1QGQAQMB6QLVAacC1QG3AgMB6ALVAXvVAYEBAwHnAqkCiQGpAo0BAwG4AqkCmAGpAqIBAwG3AqwCsAGsAu8DAwG1AqoChQGqAosBAwG0AqoCpwKqArQCAwGzAqoCeKoCfAMBsgKqAmCqAmYDAbECrwKJAa8CjQEDAa8CrwKYAa8CogEDAa4CsgKwAbIC7wMDAawCsAKxArACvQIDAasCsAKPAbAClQEDAaoCwQKwAcEC0gIDAagCxAKyAsQCvwIDAaYCxAKPAcQClQEDAaUCywKwAcsC3wIDAaMCyQKKAckCkAEDAaICyQKnAskCsQIDAaECyQJ7yQKBAQMBoALfArAB3wLhAwMBnQLuArAB7gKYBAMBmwI=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ExcelSelectRange_4" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Click_3" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_4" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_5" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="TypeInto_3" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_6" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_8" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_31" sap:VirtualizedContainerService.HintSize="336,1087">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelWriteCell_6" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_3" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_30" sap:VirtualizedContainerService.HintSize="402,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_18" sap:VirtualizedContainerService.HintSize="336,59" />
+      <sap2010:ViewStateData Id="TypeInto_23" sap:VirtualizedContainerService.HintSize="336,96" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_19" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_24" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_24" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="TypeInto_25" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_26" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="SendHotkey_25" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Sequence_64" sap:VirtualizedContainerService.HintSize="336,1008">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_63" sap:VirtualizedContainerService.HintSize="358,1367">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelFilterTable_1" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_7" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_58" sap:VirtualizedContainerService.HintSize="358,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_5" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_1" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="SendHotkey_6" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Sequence_59" sap:VirtualizedContainerService.HintSize="358,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_6" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_4" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="SendHotkey_2" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="SendHotkey_7" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Sequence_60" sap:VirtualizedContainerService.HintSize="358,654.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelFilterTable_7" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_20" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_26" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="TypeInto_27" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_8" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_65" sap:VirtualizedContainerService.HintSize="358,729.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_12" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_17" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_13" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_18" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_101" sap:VirtualizedContainerService.HintSize="200,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_102" sap:VirtualizedContainerService.HintSize="222,176.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="336,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_16" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_19" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_15" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_22" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_21" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="TypeInto_20" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_21" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="SendHotkey_23" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Click_22" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_23" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_61" sap:VirtualizedContainerService.HintSize="336,1572.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_57" sap:VirtualizedContainerService.HintSize="358,1789.33333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_46" sap:VirtualizedContainerService.HintSize="380,4970">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_7" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_8" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="SendHotkey_9" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="TypeInto_14" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_49" sap:VirtualizedContainerService.HintSize="380,633.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_50" sap:VirtualizedContainerService.HintSize="402,5767">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="424,6073">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="446,6197">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelInsertColumn_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_9" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_54" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_100" sap:VirtualizedContainerService.HintSize="336,211">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelFilterTable_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_10" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_8" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="TypeInto_36" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Click_85" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_9" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="TypeInto_32" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="TypeInto_33" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="TypeInto_34" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_51" sap:VirtualizedContainerService.HintSize="336,1568">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelFilterTable_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_11" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="TypeInto_35" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Click_86" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_87" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_88" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_6" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelFilterTable_11" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_55" sap:VirtualizedContainerService.HintSize="336,1138">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_17" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_24" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Sequence_62" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelFilterTable_9" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_21" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_27" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="ExcelSelectRange_27" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_30" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="Sequence_66" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_18" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_53" sap:VirtualizedContainerService.HintSize="358,3234">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_22" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_31" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="SendHotkey_32" sap:VirtualizedContainerService.HintSize="314,117.333333333333" />
+      <sap2010:ViewStateData Id="TypeInto_28" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_67" sap:VirtualizedContainerService.HintSize="336,633.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_23" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_33" sap:VirtualizedContainerService.HintSize="314,116.666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_34" sap:VirtualizedContainerService.HintSize="314,116.666666666667" />
+      <sap2010:ViewStateData Id="TypeInto_29" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_69" sap:VirtualizedContainerService.HintSize="336,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_68" sap:VirtualizedContainerService.HintSize="358,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_26" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="SendHotkey_35" sap:VirtualizedContainerService.HintSize="314,116.666666666667" />
+      <sap2010:ViewStateData Id="Sequence_77" sap:VirtualizedContainerService.HintSize="358,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelSelectRange_25" sap:VirtualizedContainerService.HintSize="336,59" />
+      <sap2010:ViewStateData Id="Click_26" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_77" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_78" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_79" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_80" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_81" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_82" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_83" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_84" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_99" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_76" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Click_27" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Click_31" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_49" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_50" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_51" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_52" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_53" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_61" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_82" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_62" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_63" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_60" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_54" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_55" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_56" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_57" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_58" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_59" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_83" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_66" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_33" sap:VirtualizedContainerService.HintSize="314,106">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_32" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_84" sap:VirtualizedContainerService.HintSize="336,376">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_69" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_40" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_34" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_85" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_72" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_43" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="TypeInto_30" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_75" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_42" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_86" sap:VirtualizedContainerService.HintSize="336,467">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_75" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_48" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="TypeInto_31" sap:VirtualizedContainerService.HintSize="314,96" />
+      <sap2010:ViewStateData Id="Sequence_76" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_44" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_87" sap:VirtualizedContainerService.HintSize="336,467">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_39" sap:VirtualizedContainerService.HintSize="336,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_45" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Click_46" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Sequence_71" sap:VirtualizedContainerService.HintSize="358,3289">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_25" sap:VirtualizedContainerService.HintSize="358,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_20" sap:VirtualizedContainerService.HintSize="380,7051">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="1047,7160">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendMail_1" sap:VirtualizedContainerService.HintSize="314,145" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_56" sap:VirtualizedContainerService.HintSize="336,331">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="1051,21">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="1065,7387">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CloseApplication_1" sap:VirtualizedContainerService.HintSize="1065,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="1087,7602">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="____Identify_Issues_1" sap:VirtualizedContainerService.HintSize="1127,7682" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

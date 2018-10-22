@@ -1,0 +1,430 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="____Populate_Formulas" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="____Populate_Formulas_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="7 - Populate Formulas" sap2010:WorkflowViewState.IdRef="Sequence_9">
+    <TryCatch DisplayName="Error Handling" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_12">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="ui:WorkbookApplication" Name="wbWorkingCopy" />
+          </Sequence.Variables>
+          <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Add Formulas to First 2 Columns" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Workbook="[wbWorkingCopy]" WorkbookPath="\\e04tcv-cifs02.ent.ds.gsa.gov\R3_FTS_Shares$\FSC\2018 - FY\Data Capture Tools\RPA Production Bot\FAS General Funds Chargebacks Data Capture Tool Development Working Copy.xlsx">
+            <ui:ExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataTable" Name="dtOutstandingIssues" />
+                  </Sequence.Variables>
+                  <ui:ExcelWriteCell Cell="B2:B4000" DisplayName="Write newUnique Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="OutstandingIssues" Text="=AA2&amp;I2&amp;W2" />
+                  <ui:ExcelWriteCell Cell="A2:A4000" DisplayName="Write previouslyResolved Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="OutstandingIssues" Text="=COUNTIF(resolvedUnique,b2)" />
+                  <ui:Comment sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Formulas should copy down &amp; update for the entire specified range" />
+                </Sequence>
+              </ActivityAction>
+            </ui:ExcelApplicationScope.Body>
+          </ui:ExcelApplicationScope>
+          <Sequence DisplayName="Add Headers for Calculated Fields from Reconciliation Tab to OutstandingIssues" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="dtReconHeaders" />
+            </Sequence.Variables>
+            <ui:ExcelApplicationScope Password="{x:Null}" WorkbookPath="{x:Null}" DisplayName="Access Working Copy" ExistingWorkbook="[wbWorkingCopy]" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4">
+              <ui:ExcelApplicationScope.Body>
+                <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <Sequence DisplayName="Add Info to Columns with Static Info and Make a Table" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="sd:DataTable" Name="dtOutstandingIssuesWithHeaders" />
+                      </Sequence.Variables>
+                      <ui:ExcelReadRange AddHeaders="True" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Pull OutstandingIssues Tab" sap2010:WorkflowViewState.IdRef="ExcelReadRange_2" SheetName="OutstandingIssues">
+                        <ui:ExcelReadRange.Range>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </ui:ExcelReadRange.Range>
+                      </ui:ExcelReadRange>
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Status" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Status' column" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Issue in Research Date" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Issue in Research Date' column" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_2" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Issue Owner - GSA" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Issue Owner - USDA' column" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_3" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Reason Code" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Reason Code'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_4" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="GSA Comments" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'GSA Comments'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_5" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Actions" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Actions'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_6" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="ALC to Rebill" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'ALC to Rebill'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_7" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="TAS to Rebill" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'TAS to Rebill'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_8" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Line of Accounting to Rebill" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Line of Accounting to Rebill'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_9" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Special Insutrctions" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Special Instructions'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_10" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Customer POC/Contact Information" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Customer POC/Contact Information'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_11" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Passed to USDA Date" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Passed to USDA Date'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_12" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Issue Owner - USDA" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Issue Owner - USDA'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_13" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="USDA Comments" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'USDA Comments'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_14" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="New IPAC Document Reference Number" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'New IPAC Document Reference Number'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_15" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="USDA Complete Date" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'USDA Completion Date'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_16" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Reconciliation Date" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Reconciliation Date'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_17" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Chargeback Count" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Chargeback Count'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_18" MaxLength="100" Unique="False" />
+                      <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Open Date" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Add 'Open Date'" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_19" MaxLength="100" Unique="False" />
+                      <ui:ForEachRow DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Cycle Through Rows to Add Static Values" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                        <ui:ForEachRow.Body>
+                          <ActivityAction x:TypeArguments="sd:DataRow">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                              <Assign DisplayName="Give All Cells in Column AD &quot;Open&quot;" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Object">[row(29)]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Object">["Open"]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <Assign DisplayName="Give All Cells in Column AU &quot;1&quot;" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Object">[row(46)]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Object">["1"]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <Assign DisplayName="Give All Cells in Column AV Today's Date" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Object">[row(47)]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Object">[now.Date.Month.ToString+"/"+now.Date.Day.ToString+"/"+now.Date.Year.ToString]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:ForEachRow.Body>
+                      </ui:ForEachRow>
+                      <ui:ExcelWriteRange AddHeaders="True" DataTable="[dtOutstandingIssuesWithHeaders]" DisplayName="Paste Updated OutstandingIssues Tab into Tool" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_2" SheetName="OutstandingIssues" StartingCell="A1" />
+                    </Sequence>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ExcelApplicationScope.Body>
+            </ui:ExcelApplicationScope>
+          </Sequence>
+          <ui:ExcelApplicationScope Password="{x:Null}" WorkbookPath="{x:Null}" DisplayName="Add Formulas to New Columns" ExistingWorkbook="[wbWorkingCopy]" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2">
+            <ui:ExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataTable" Name="dtOutstandingIssues" />
+                  </Sequence.Variables>
+                  <ui:ExcelWriteCell Cell="AE2:AF4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AD$4:AD$25000,MATCH(OutstandingIssues!$B2,resolvedUnique,0))=0,0,INDEX(Resolved!AD$4:AD$25000,MATCH(OutstandingIssues!$B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AG2:AG4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_4" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AF$4:AF$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AF$4:AF$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AH2:AH4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_5" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AG$4:AG$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AG$4:AG$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AJ2:AJ4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_6" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AI$4:AI$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AI$4:AI$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AK2:AK4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_7" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AJ$4:AJ$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AJ$4:AJ$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AL2:AL4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_8" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AK$4:AK$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AK$4:AK$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AM2:AM4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_9" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AL$4:AL$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AL$4:AL$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AN2:AN4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_10" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AM$4:AM$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AM$4:AM$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AP2:AP4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_11" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AO$4:AO$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AO$4:AO$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AQ2:AQ4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_12" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AP$4:AP$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AP$4:AP$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AR2:AR4000" DisplayName="Write in Formula" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_13" SheetName="OutstandingIssues" Text="=IFERROR(IF(INDEX(Resolved!AQ$4:AQ$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AQ$4:AQ$25000,MATCH($B2,resolvedUnique,0))),0)" />
+                  <ui:ExcelWriteCell Cell="AU2:AU4000" DisplayName="Write in Formula in Chargebacks Count Column" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_14" SheetName="OutstandingIssues" Text="=IF(A2=0,1,IF(INDEX(Resolved!AT$4:AT$25000,MATCH($B2,resolvedUnique,0))=0,0,INDEX(Resolved!AT$4:AT$25000,MATCH($B2,resolvedUnique,0)))+1)" />
+                </Sequence>
+              </ActivityAction>
+            </ui:ExcelApplicationScope.Body>
+          </ui:ExcelApplicationScope>
+          <ui:Click DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="15000" DisplayName="Click 'Save'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bd08c72f246bf7be33a4d8b0ca28fb6c" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;&lt;wnd cls='NetUIHWND' idx='2' /&gt;&lt;ctrl name='Ribbon' role='property page' /&gt;&lt;ctrl name='Quick Access Toolbar' role='tool bar' /&gt;&lt;ctrl name='Save' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:CloseApplication ContinueOnError="True" DisplayName="Close Excel" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+            <ui:CloseApplication.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1e71e84155008f0a830ed65690fefa70" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='Microsoft Excel - FAS General Funds Chargebacks Data Capture Too*' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:CloseApplication.Target>
+          </ui:CloseApplication>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_15">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Default="rpaprd01_gsa_rpa01.noreply@gsa.gov" Name="vRecipient" />
+                <Variable x:TypeArguments="x:String" Default="rpaprd01_gsa_rpa01.noreply@gsa.gov" Name="vBotEmail" />
+              </Sequence.Variables>
+              <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" Email="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" TimeoutMS="{x:Null}" Body="The FAS Chargebacks bot has encountered an error. The bot failed to populate the required COUNTIF, INDEX-MATCH, and other formulas into the Tool. All other steps before this point were successful. " DisplayName="Send Error Email" EnableSSL="True" From="[vBotEmail]" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="25" SecureConnection="None" Server="smtp.gsa.gov" Subject="Error Occurred in FAS Chargebacks Bot" To="[vRecipient]">
+                <ui:SendMail.Files>
+                  <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                </ui:SendMail.Files>
+              </ui:SendMail>
+              <TerminateWorkflow DisplayName="End Workflow" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ExcelWriteCell_1" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_2" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Comment_1" sap:VirtualizedContainerService.HintSize="314,74.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,452">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="1052,560.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelReadRange_2" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_4" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_5" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_6" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_7" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_8" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_9" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_10" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_11" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_12" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_13" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_14" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_15" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_16" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_17" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_18" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_19" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,386">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="314,534.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelWriteRange_2" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,2062">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="358,2186">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_4" sap:VirtualizedContainerService.HintSize="414,2294.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="1052,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelWriteCell_3" sap:VirtualizedContainerService.HintSize="314,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelWriteCell_4" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_5" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_6" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_7" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_8" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_9" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_10" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_11" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_12" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_13" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_14" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,1604">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="200,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="200,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CloseApplication_1" sap:VirtualizedContainerService.HintSize="200,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="1074,1055.33333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendMail_1" sap:VirtualizedContainerService.HintSize="314,149.333333333333" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="336,335.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="1078,22.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="1092,1292">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="440,421.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="____Populate_Formulas_1" sap:VirtualizedContainerService.HintSize="480,501.333333333333" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,18 @@
+{
+  "name": "bot",
+  "description": "Project",
+  "main": "H:\\bot\\10 - Prep DC Tool.xaml",
+  "dependencies": {
+    "UiPath.Core.Activities": "18.1.6621.12947",
+    "UiPath.Excel.Activities": "2.0.6526.16321",
+    "UiPath.Mail.Activities": "1.1.6562.21018"
+  },
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "18.1.2.0",
+  "projectVersion": "1.0.6789.17370",
+  "packOptions": {},
+  "runtimeOptions": {}
+}
